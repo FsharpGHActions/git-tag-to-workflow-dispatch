@@ -5,7 +5,6 @@
 # Requirements:
 #
 # - bash
-# - git
 # - dotnet
 # - yq
 
@@ -17,8 +16,7 @@ cd "${REPO_PATH}"
 
 ls -la
 
-# fatal: detected dubious ownership in repository at '/github/workspace'
-git config --global --add safe.directory /github/workspace
+git tag --sort -creatordate
 GIT_TAGS=$(git tag --sort -creatordate)
 
 echo "[+] GIT_TAGS: ${GIT_TAGS}"
@@ -26,6 +24,6 @@ echo "[+] GIT_TAGS: ${GIT_TAGS}"
 # dotnet run --project . "${GIT_TAGS}"
 /proj/Main "${GIT_TAGS}"
 
-yq -i '. * load("src/workflow.new.yml")' "${REPO_PATH}.github/workflows/${WORKFLOW_FILE_NAME}"
+yq -y -i '. * load("src/workflow.new.yml")' "${REPO_PATH}.github/workflows/${WORKFLOW_FILE_NAME}"
 
 echo "[+] Script done!"
