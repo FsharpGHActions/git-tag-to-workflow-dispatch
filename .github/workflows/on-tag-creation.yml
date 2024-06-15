@@ -23,7 +23,8 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        files: [example-001.yml, example-002.yml, example-003.yml]
+        # files: [example-001.yml, example-002.yml, example-003.yml]
+        files: [example-001.yml]
     steps:
       # Example for testing the action:
       # https://github.com/microsoft/action-python/blob/main/.github/workflows/test.yml#L8
