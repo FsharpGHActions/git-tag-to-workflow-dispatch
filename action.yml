@@ -33,13 +33,11 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Install .NET
-      uses: actions/setup-dotnet@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
       with:
-        dotnet-version: 8.x
-    - name: List the tags
-      shell: bash
-      run: git tag --sort -creatordate
+        ref: ${{ inputs.base-branch }}
+        fetch-tags: true
     - name: Create the new workflow configuration
       uses: ./.github/fsharp-custom-action
       with:
