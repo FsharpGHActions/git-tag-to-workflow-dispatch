@@ -1,0 +1,59 @@
+name: 'Git Tags to Workflow Dispatch'
+description: 'Automatically populate the workflow options with available tags from the repo'
+author: '64J0'
+inputs:
+  values-to-take:
+    description: >
+      In order to avoid presenting very old tags at the workflow options, this input let's you
+      specify how many tags to take, considering the order starting from the new tags to the
+      old tags. If you don't specify this value, it will take all the tags.
+    default: '-1'
+  workflow-file-name:
+    description: >
+      Specify the target workflow file name that must live under `.github/workflows/`.
+  workflow-yaml-key:
+    description: >
+      Specify the workflow YAML key that will be updated.
+  pull-request:
+    description: >
+      TODO. Set the value 'false' if you prefer that the workflow change is commited directly
+      instead of creating a pull request that you can manually verify.
+    default: 'true'
+  github-token:
+    description: >
+      A GitHub token with permissions:
+      - contents: write
+      - pull-requests: write
+      Necessary for https://github.com/marketplace/actions/create-pull-request#action-inputs.
+      Also necessary: https://github.com/marketplace/actions/create-pull-request#workflow-permissions.
+  base-branch:
+    description: >
+      Specify the pull request base branch.
+    default: 'main'
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ inputs.base-branch }}
+        fetch-tags: 'true'
+    - name: Create the new workflow configuration
+      uses: ./.github/fsharp-custom-action
+      with:
+        values-to-take: ${{ inputs.values-to-take }}
+        workflow-file-name: ${{ inputs.workflow-file-name }}
+        workflow-yaml-key: ${{ inputs.workflow-yaml-key }}
+        repo-path: ${{ github.GITHUB_WORKSPACE }}
+    - name: Create pull request
+      # if: ${{ inputs.pull-request }} # TODO
+      uses: peter-evans/create-pull-request@v6
+      with:
+        token: ${{ inputs.github-token }}
+        branch-suffix: timestamp
+        branch: git-tag-to-workflow-dispatch
+        commit-message: |
+          chore: automated git tags to workflow dispatch
+
+          this commit is updating the workflow dispatch (github actions) options autonomously
+          with the tags from this repository

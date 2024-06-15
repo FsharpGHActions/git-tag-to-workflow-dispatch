@@ -1,0 +1,8 @@
+on:
+  workflow_dispatch:
+    inputs:
+      TEMP_WORKFLOW_KEY%%:
+        type: choice
+        options:
+        - v1.0.0
+        - v1.0.1

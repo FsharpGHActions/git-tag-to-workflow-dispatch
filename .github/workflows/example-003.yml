@@ -1,0 +1,22 @@
+name: Example 001
+
+on:
+  workflow_dispatch:
+    inputs:
+      app:
+        description: "The app to release. The name should be the same as name in package.json"
+        required: true
+      version:
+        description: "The version to release. The version should be the same as version in package.json. For example, 1.0.0"
+        required: true
+        type: boolean
+
+jobs:
+  release:
+    name: Deploy
+    runs-on: ubuntu:22.04
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          ref: ref/tags/${{ inputs.version }}

@@ -1,0 +1,11 @@
+#+TITLE: Automate GitTags to Workflow Options
+
+The idea to create this project was born from this ![discussion][https://github.com/orgs/community/discussions/45871].
+
+** What is this project
+
+TODO
+
+** How to use it?
+
+TODO

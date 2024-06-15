@@ -1,0 +1,43 @@
+name: On tag creation
+
+# https://github.com/orgs/community/discussions/25302
+on:
+  push:
+    tags:
+    - '*'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+# Kill other jobs when we trigger this workflow by sending new commits
+# to the PR.
+# https://stackoverflow.com/a/72408109
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  custom-action:
+    name: Update workflow dispatch tags
+    runs-on: ubuntu:22.04
+    strategy:
+      matrix:
+        files: [example-001.yml, example-002.yml, example-003.yml]
+    steps:
+      # Example for testing the action:
+      # https://github.com/microsoft/action-python/blob/main/.github/workflows/test.yml#L8
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          path: tagaction
+      - uses: ./tagaction
+        with:
+          values-to-take: 5
+          workflow-file-name: ${{ matrix.files }}
+          workflow-yaml-key: 'version'
+          pull-request: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          base-branch: master
+
+      
