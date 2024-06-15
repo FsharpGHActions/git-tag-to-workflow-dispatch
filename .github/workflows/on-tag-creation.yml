@@ -31,7 +31,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           path: tagaction
-      - uses: ./tagaction
+      - name: Run custom action
+        uses: ./tagaction
         with:
           values-to-take: 5
           workflow-file-name: ${{ matrix.files }}
