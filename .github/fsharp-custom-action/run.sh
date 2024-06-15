@@ -26,6 +26,6 @@ echo "[+] GIT_TAGS: ${GIT_TAGS}"
 # dotnet run --project . "${GIT_TAGS}"
 /proj/Main "${GIT_TAGS}"
 
-yq -y -i '. * load("src/workflow.new.yml")' "${REPO_PATH}.github/workflows/${WORKFLOW_FILE_NAME}"
+yq -y -i '. * load("/proj/workflow.new.yml")' "${REPO_PATH}/.github/workflows/${WORKFLOW_FILE_NAME}"
 
 echo "[+] Script done!"
