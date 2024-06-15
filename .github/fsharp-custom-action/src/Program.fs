@@ -48,10 +48,10 @@ type RETURN_CODE =
 
 type Workflow = YamlConfig<"workflow.temp.yml">
 
-let handleMainResult (mainResult: Result<unit, string>) : int =
+let handleMainResult (mainResult: Result<string, string>) : int =
     match mainResult with
-    | Ok _r ->
-        printfn "[SUCCESS] New options generated!"
+    | Ok filePath ->
+        printfn $"[SUCCESS] New options generated on path: {filePath}!"
         int RETURN_CODE.SUCCESS
     | Error err ->
         eprintfn $"[ERROR] {err}"
@@ -97,6 +97,6 @@ let main (args: string array) : int =
 
         // next -> use yq to merge the workflow with updated options to the already existent workflow
 
-        return ()
+        return (workflowNewPath)
     }
     |> handleMainResult
