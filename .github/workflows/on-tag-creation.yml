@@ -32,6 +32,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           path: tagaction
+          fetch-tags: true
+      - name: Try to get the tags
+        run: |
+          cd tagaction
+          git tag --sort -creatordate
       - name: Run custom action
         uses: ./tagaction
         with:
