@@ -38,7 +38,7 @@ runs:
       with:
         fetch-depth: 0 # to get the tags
     - name: Try to get the tags
-      working-directory: ./tagaction
+      shell: bash
       run: |
         THIS_GIT_TAGS=$(git tag --sort -creatordate)
 
