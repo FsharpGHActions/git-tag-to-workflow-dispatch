@@ -3,8 +3,8 @@ name: On tag creation
 # https://github.com/orgs/community/discussions/25302
 on:
   push:
-    tags:
-    - '*'
+    # tags:
+    # - '*'
 
 permissions:
   contents: write
