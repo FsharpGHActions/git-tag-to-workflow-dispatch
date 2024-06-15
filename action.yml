@@ -30,22 +30,12 @@ inputs:
     description: >
       Specify the pull request base branch.
     default: 'main'
+  git-tags:
+    description: >
+      The repository tags.
 runs:
   using: 'composite'
   steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0 # to get the tags
-    - name: Try to get the tags
-      shell: bash
-      run: |
-        THIS_GIT_TAGS=$(git tag --sort -creatordate --column)
-
-        echo "Git tags: ${THIS_GIT_TAGS}"
-
-        echo "THIS_GIT_TAGS=${THIS_GIT_TAGS}" >> "${GITHUB_ENV}"
-
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
@@ -57,7 +47,7 @@ runs:
         WORKFLOW_FILE_NAME: ${{ inputs.workflow-file-name }}
         WORKFLOW_KEY: ${{ inputs.workflow-yaml-key }}
         REPO_PATH: ${{ inputs.repo_path }}
-        GIT_TAGS: ${{ env.THIS_GIT_TAGS }}
+        GIT_TAGS: ${{ inputs.git-tags }}
       run: dotnet run --project src/ "${GIT_TAGS}"
     
     - name: Merge the workflows

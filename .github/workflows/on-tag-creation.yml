@@ -32,7 +32,16 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
+          fetch-depth: 0 # to get the tags
           path: tagaction
+      - name: Get the repository tags
+        working-directory: ./tagaction
+        run: |
+          THIS_GIT_TAGS=$(git tag --sort -creatordate --column)
+  
+          echo "Git tags: ${THIS_GIT_TAGS}"
+  
+          echo "THIS_GIT_TAGS=${THIS_GIT_TAGS}" >> "${GITHUB_ENV}"
       - name: Run custom action
         uses: ./tagaction
         with:
@@ -42,5 +51,6 @@ jobs:
           pull-request: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
           base-branch: master
+          git-tags: ${{ env.THIS_GIT_TAGS }}
 
       
