@@ -36,10 +36,15 @@ runs:
     - name: Checkout repository
       uses: actions/checkout@v4
       with:
-        fetch-tags: true
+        fetch-depth: 0 # to get the tags
     - name: Try to get the tags
-      shell: bash
-      run: git tag --sort -creatordate
+      working-directory: ./tagaction
+      run: |
+        THIS_GIT_TAGS=$(git tag --sort -creatordate)
+
+        echo "Git tags: ${THIS_GIT_TAGS}"
+
+        echo "THIS_GIT_TAGS=${THIS_GIT_TAGS}" >> "${GITHUB_ENV}"
     - name: Create the new workflow configuration
       uses: ./.github/fsharp-custom-action
       with:
@@ -47,6 +52,7 @@ runs:
         workflow-file-name: ${{ inputs.workflow-file-name }}
         workflow-yaml-key: ${{ inputs.workflow-yaml-key }}
         repo-path: ${{ github.GITHUB_WORKSPACE }}
+        git-tags: ${{ env.THIS_GIT_TAGS }}
     - name: Create pull request
       # if: ${{ inputs.pull-request }} # TODO
       uses: peter-evans/create-pull-request@v6

@@ -16,6 +16,9 @@ inputs:
   repo-path:
     description: >
       The path for the checkout repository.
+  git-tags:
+    description: >
+      The tags from the repository ordered from the most recent to the most old.
 runs:
   using: 'docker'
   image: 'Dockerfile'
@@ -24,3 +27,4 @@ runs:
     WORKFLOW_FILE_NAME: ${{ inputs.workflow-file-name }}
     WORKFLOW_KEY: ${{ inputs.workflow-yaml-key }}
     REPO_PATH: ${{ inputs.repo_path }}
+    GIT_TAGS: ${{ inputs.git-tags }}

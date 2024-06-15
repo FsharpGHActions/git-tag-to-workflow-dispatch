@@ -17,7 +17,7 @@ ENV WORKFLOW_KEY=""
 
 WORKDIR /proj
 
-RUN apt update && apt install -y git yq
+RUN apt update && apt install -y yq
 
 COPY --from=build /proj/out .
 COPY --chmod=0755 run.sh .
