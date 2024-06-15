@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "GitTagsToWorkflowDispatch", "src\GitTagsToWorkflowDispatch.fsproj", "{8F95AD97-79BB-4B5B-9E5B-B760DFC31E27}"
-EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "tests", "tests\tests.fsproj", "{B466D550-9E96-4C6A-9CBF-2A8D813AD195}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Main", "src\Main.fsproj", "{E682DC01-4FED-47C7-AFCF-2A50E391A579}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,13 +16,13 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8F95AD97-79BB-4B5B-9E5B-B760DFC31E27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8F95AD97-79BB-4B5B-9E5B-B760DFC31E27}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8F95AD97-79BB-4B5B-9E5B-B760DFC31E27}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8F95AD97-79BB-4B5B-9E5B-B760DFC31E27}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B466D550-9E96-4C6A-9CBF-2A8D813AD195}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B466D550-9E96-4C6A-9CBF-2A8D813AD195}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B466D550-9E96-4C6A-9CBF-2A8D813AD195}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B466D550-9E96-4C6A-9CBF-2A8D813AD195}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E682DC01-4FED-47C7-AFCF-2A50E391A579}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E682DC01-4FED-47C7-AFCF-2A50E391A579}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E682DC01-4FED-47C7-AFCF-2A50E391A579}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E682DC01-4FED-47C7-AFCF-2A50E391A579}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
