@@ -1,7 +1,0 @@
-bin/
-obj/
-.gitignore
-LICENSE.txt
-README.*
-.github/
-tests/

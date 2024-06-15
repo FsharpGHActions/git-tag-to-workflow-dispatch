@@ -45,14 +45,28 @@ runs:
         echo "Git tags: ${THIS_GIT_TAGS}"
 
         echo "THIS_GIT_TAGS=${THIS_GIT_TAGS}" >> "${GITHUB_ENV}"
-    - name: Create the new workflow configuration
-      uses: ./.github/fsharp-custom-action
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
       with:
-        values-to-take: ${{ inputs.values-to-take }}
-        workflow-file-name: ${{ inputs.workflow-file-name }}
-        workflow-yaml-key: ${{ inputs.workflow-yaml-key }}
-        repo-path: ${{ github.GITHUB_WORKSPACE }}
-        git-tags: ${{ env.THIS_GIT_TAGS }}
+        dotnet-version: '8.x'
+    - name: Run the .NET program
+      shell: bash
+      env:
+        VALUES_TO_TAKE: ${{ inputs.values-to-take }}
+        WORKFLOW_FILE_NAME: ${{ inputs.workflow-file-name }}
+        WORKFLOW_KEY: ${{ inputs.workflow-yaml-key }}
+        REPO_PATH: ${{ inputs.repo_path }}
+        GIT_TAGS: ${{ env.THIS_GIT_TAGS }}
+      run: dotnet run --project . "${GIT_TAGS}"
+    
+    - name: Merge the workflows
+      uses: mikefarah/yq@master
+      env:
+        WORKFLOW_FILE_NAME: ${{ inputs.workflow-file-name }}
+      with:
+        cmd: yq -i '. * load("./src/workflow.new.yml")' ".github/workflows/${WORKFLOW_FILE_NAME}"
+    
     - name: Create pull request
       # if: ${{ inputs.pull-request }} # TODO
       uses: peter-evans/create-pull-request@v6
