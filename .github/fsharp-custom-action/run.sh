@@ -13,6 +13,8 @@ set -euo pipefail
 
 echo "[+] Running script..."
 
+cd "${REPO_PATH}"
+
 ls -la
 
 # fatal: detected dubious ownership in repository at '/github/workspace'
