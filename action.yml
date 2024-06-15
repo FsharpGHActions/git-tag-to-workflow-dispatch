@@ -38,7 +38,7 @@ runs:
   steps:
     - name: Checkout repo
       uses: actions/checkout@v4
-      
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
@@ -65,13 +65,17 @@ runs:
       env:
         WORKFLOW_FILE_NAME: ${{ inputs.workflow-file-name }}
       run: cat ".github/workflows/${WORKFLOW_FILE_NAME}"
+
+    - name: Remove workflow.new.yml
+      shell: bash
+      run: ./src/workflow.new.yml
     
     - name: Create pull request
       # if: ${{ inputs.pull-request }} # TODO
       uses: peter-evans/create-pull-request@v6
       with:
         token: ${{ inputs.github-token }}
-        branch-suffix: timestamp
+        # branch-suffix: timestamp
         branch: git-tag-to-workflow-dispatch
         commit-message: |
           chore: automated git tags to workflow dispatch
