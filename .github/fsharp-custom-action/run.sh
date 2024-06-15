@@ -16,10 +16,6 @@ cd "${REPO_PATH}"
 
 ls -la
 
-# fatal: detected dubious ownership in repository at '/github/workspace'
-git config --global --add safe.directory /github/workspace
-GIT_TAGS=$(git tag --sort -creatordate)
-
 echo "[+] GIT_TAGS: ${GIT_TAGS}"
 
 # dotnet run --project . "${GIT_TAGS}"
