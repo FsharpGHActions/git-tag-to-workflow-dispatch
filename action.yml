@@ -40,7 +40,7 @@ runs:
     - name: Try to get the tags
       shell: bash
       run: |
-        THIS_GIT_TAGS=$(git tag --sort -creatordate)
+        THIS_GIT_TAGS=$(git tag --sort -creatordate --column)
 
         echo "Git tags: ${THIS_GIT_TAGS}"
 
