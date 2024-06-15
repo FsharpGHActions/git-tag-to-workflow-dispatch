@@ -16,6 +16,8 @@ cd "${REPO_PATH}"
 
 ls -la
 
+# fatal: detected dubious ownership in repository at '/github/workspace'
+git config --global --add safe.directory /github/workspace
 git tag --sort -creatordate
 GIT_TAGS=$(git tag --sort -creatordate)
 
