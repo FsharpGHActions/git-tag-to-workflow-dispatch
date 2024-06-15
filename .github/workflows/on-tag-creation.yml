@@ -2,6 +2,7 @@ name: On tag creation
 
 # https://github.com/orgs/community/discussions/25302
 on:
+  workflow_dispatch:
   push:
     # tags:
     # - '*'
