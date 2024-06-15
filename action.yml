@@ -38,6 +38,9 @@ runs:
       with:
         ref: ${{ inputs.base-branch }}
         fetch-tags: true
+    - name: Try to get the tags
+      shell: bash
+      run: git tag --sort -creatordate
     - name: Create the new workflow configuration
       uses: ./.github/fsharp-custom-action
       with:
