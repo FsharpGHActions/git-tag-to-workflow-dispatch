@@ -58,7 +58,7 @@ runs:
         WORKFLOW_KEY: ${{ inputs.workflow-yaml-key }}
         REPO_PATH: ${{ inputs.repo_path }}
         GIT_TAGS: ${{ env.THIS_GIT_TAGS }}
-      run: dotnet run --project . "${GIT_TAGS}"
+      run: dotnet run --project src/ "${GIT_TAGS}"
     
     - name: Merge the workflows
       uses: mikefarah/yq@master
