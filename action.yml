@@ -66,6 +66,12 @@ runs:
         WORKFLOW_FILE_NAME: ${{ inputs.workflow-file-name }}
       with:
         cmd: yq -i '. * load("./src/workflow.new.yml")' ".github/workflows/${WORKFLOW_FILE_NAME}"
+
+    - name: Debug -> Print the new workflow file
+      shell: bash
+      env:
+        WORKFLOW_FILE_NAME: ${{ inputs.workflow-file-name }}
+      run: cat ".github/workflows/${WORKFLOW_FILE_NAME}"
     
     - name: Create pull request
       # if: ${{ inputs.pull-request }} # TODO
