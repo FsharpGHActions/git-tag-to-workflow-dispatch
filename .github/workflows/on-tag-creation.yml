@@ -7,10 +7,6 @@ on:
     # tags:
     # - '*'
 
-permissions:
-  contents: write
-  pull-requests: write
-
 # Kill other jobs when we trigger this workflow by sending new commits
 # to the PR.
 # https://stackoverflow.com/a/72408109
@@ -49,7 +45,8 @@ jobs:
           workflow-file-name: ${{ matrix.files }}
           workflow-yaml-key: 'version'
           pull-request: true
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          # needs to be a PAT to update the workflows/ folder
+          github-token: ${{ secrets.PAT_GITHUB }}
           base-branch: master
           git-tags: ${{ env.THIS_GIT_TAGS }}
 
