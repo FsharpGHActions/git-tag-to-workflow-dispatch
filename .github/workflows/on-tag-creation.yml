@@ -20,7 +20,7 @@ concurrency:
 jobs:
   custom-action:
     name: Update workflow dispatch tags
-    runs-on: ubuntu:22.04
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         files: [example-001.yml, example-002.yml, example-003.yml]

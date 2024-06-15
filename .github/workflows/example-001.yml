@@ -18,7 +18,7 @@ on:
 jobs:
   release:
     name: Deploy
-    runs-on: ubuntu:22.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
