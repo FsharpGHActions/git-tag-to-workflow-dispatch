@@ -22,4 +22,4 @@ RUN apt update && apt install -y git yq
 COPY --from=build /proj/out .
 COPY --chmod=0755 run.sh .
 
-ENTRYPOINT ["run.sh"]
+ENTRYPOINT ["/proj/run.sh"]
