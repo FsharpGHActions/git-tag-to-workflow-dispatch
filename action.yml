@@ -36,7 +36,6 @@ runs:
     - name: Checkout repository
       uses: actions/checkout@v4
       with:
-        ref: ${{ inputs.base-branch }}
         fetch-tags: true
     - name: Try to get the tags
       shell: bash
