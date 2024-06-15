@@ -1,5 +1,4 @@
 name: Example 001
-
 on:
   workflow_dispatch:
     inputs:
@@ -11,10 +10,7 @@ on:
         required: true
         type: choice
         options:
-          - v1.0.0
-          - v0.9.0
-          - v0.8.0
-
+          - v0.0.002  v0.0.001
 jobs:
   release:
     name: Deploy

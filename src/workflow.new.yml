@@ -1,0 +1,7 @@
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        type: choice
+        options:
+        - v0.0.002  v0.0.001
