@@ -47,7 +47,6 @@ runs:
       shell: bash
       env:
         VALUES_TO_TAKE: ${{ inputs.values-to-take }}
-        WORKFLOW_FILE_NAME: ${{ inputs.workflow-file-name }}
         WORKFLOW_KEY: ${{ inputs.workflow-yaml-key }}
         REPO_PATH: ${{ inputs.repo_path }}
         GIT_TAGS: ${{ inputs.git-tags }}
