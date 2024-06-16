@@ -22,8 +22,8 @@ TODO
 | values-to-take     | Let you specify how many tags to take.                                       |            -1 |
 | workflow-file-name | Target workflow file name that must live under `.github/workflows/`.         |               |
 | workflow-yaml-key  | Specify the workflow YAML key that will be updated.                          |               |
-| github-token       | PAT token with more information at [[#pat][Personal Access Token - PAT]].              |               |
-| git-tags           | The repository tags from the newest to the oldest. Example [[#extract-tags][Extract the tags]]. |               |
+| github-token       | PAT token with more information at [[*Personal Access Token - PAT][Personal Access Token - PAT]].              |               |
+| git-tags           | The repository tags from the newest to the oldest. Example [[*Extracting the tags][Extract the tags]]. |               |
 
 *** Optional input arguments
 
@@ -32,7 +32,6 @@ TODO
 | pull-request | TODO. If 'true', create a PR; if false, commit directly. | 'true'        |
 
 *** Personal Access Token - PAT
-#+CUSTOM_ID:pat
 
 Since this action creates a PR automatically that changes the contents of the
 repository workflows, it demands some special permissions, which are out of the
@@ -48,7 +47,6 @@ permissions:
 - Read and write access to workflows.
 
 *** Extracting the tags
-#+CUSTOM_ID:extract-tags
 
 Since there are many ways to extract the tags from the repository, I decided to
 not add this feature to the project, so you're free to decide which one to
