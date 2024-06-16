@@ -1,0 +1,48 @@
+# Inspired by:
+# https://github.com/mikefarah/yq/blob/master/.github/workflows/release.yml
+
+name: Release F#
+
+on:
+  push:
+    tags:
+      - '*'
+
+# Kill other jobs when we trigger this workflow by sending new commits
+# to the PR.
+# https://stackoverflow.com/a/72408109
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    name: Update workflow dispatch tags
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.x'
+      - name: Install dependencies
+        working-directory: ./src/
+        run: dotnet restore
+      - name: Build
+        working-directory: ./src/
+        run: dotnet build --configuration Release --no-restore
+      - name: Publish
+        working-directory: ./src/
+        # https://learn.microsoft.com/en-us/dotnet/core/deploying/#publish-self-contained
+        run: dotnet publish -c Release -o out/ -r linux-x64 --self-contained true --no-restore
+      - name: Compress published program
+        working-directory: ./src/
+        run: tar -czvf fsharp-program.tar.gz out/
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ./src/fsharp-program.tar.gz
+          fail_on_unmatched_files: true
+
+      
