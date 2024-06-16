@@ -1,5 +1,5 @@
 name: 'Git Tags to Workflow Dispatch'
-description: 'Automatically populate the workflow options with available tags from the repo'
+description: 'Automatically populate the workflow dispatch options with available tags from the repo'
 author: '64J0'
 inputs:
   values-to-take:
@@ -26,10 +26,6 @@ inputs:
       - pull-requests: write
       Necessary for https://github.com/marketplace/actions/create-pull-request#action-inputs.
       Also necessary: https://github.com/marketplace/actions/create-pull-request#workflow-permissions.
-  base-branch:
-    description: >
-      Specify the pull request base branch.
-    default: 'main'
   git-tags:
     description: >
       The repository tags.

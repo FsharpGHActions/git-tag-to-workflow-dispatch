@@ -47,7 +47,6 @@ jobs:
           pull-request: true
           # needs to be a PAT to update the workflows/ folder
           github-token: ${{ secrets.PAT_GITHUB }}
-          base-branch: master
           git-tags: ${{ env.THIS_GIT_TAGS }}
 
       
