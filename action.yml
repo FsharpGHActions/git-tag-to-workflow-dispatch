@@ -64,9 +64,13 @@ runs:
         WORKFLOW_FILE_NAME: ${{ inputs.workflow-file-name }}
       run: cat ".github/workflows/${WORKFLOW_FILE_NAME}"
 
-    - name: Remove workflow.new.yml
+    - name: Clean action
+      working-directory: ./src
       shell: bash
-      run: rm ./src/workflow.new.yml
+      run: |
+        rm ./src/workflow.new.yml
+        rm ./fsharp-program.tar.gz
+        rm -rf out/
     
     - name: Create pull request
       # if: ${{ inputs.pull-request }} # TODO
