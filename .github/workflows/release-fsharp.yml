@@ -8,6 +8,9 @@ on:
     tags:
       - '*'
 
+permissions:
+  contents: write
+
 # Kill other jobs when we trigger this workflow by sending new commits
 # to the PR.
 # https://stackoverflow.com/a/72408109
