@@ -22,8 +22,8 @@ TODO
 | values-to-take     | Let you specify how many tags to take.                                       |            -1 |
 | workflow-file-name | Target workflow file name that must live under `.github/workflows/`.         |               |
 | workflow-yaml-key  | Specify the workflow YAML key that will be updated.                          |               |
-| github-token       | PAT token with more information at [[*Personal Access Token - PAT][Personal Access Token - PAT]].              |               |
-| git-tags           | The repository tags from the newest to the oldest. Example [[*Extracting the tags][Extract the tags]]. |               |
+| github-token       | PAT token with more information at [[#personal-access-token---pat][Personal Access Token - PAT]].              |               |
+| git-tags           | The repository tags from the newest to the oldest. Example [[#extracting-the-tags][Extract the tags]]. |               |
 
 *** Optional input arguments
 
