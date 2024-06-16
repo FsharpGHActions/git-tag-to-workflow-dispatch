@@ -1,11 +1,10 @@
 name: On tag creation
 
-# https://github.com/orgs/community/discussions/25302
 on:
   workflow_dispatch:
   push:
-    # tags:
-    # - '*'
+    tags: # https://github.com/orgs/community/discussions/25302
+    - '*'
 
 # Kill other jobs when we trigger this workflow by sending new commits
 # to the PR.
