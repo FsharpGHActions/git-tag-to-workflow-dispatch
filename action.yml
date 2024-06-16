@@ -65,7 +65,6 @@ runs:
       run: cat ".github/workflows/${WORKFLOW_FILE_NAME}"
 
     - name: Clean action
-      working-directory: ./src
       shell: bash
       run: |
         rm ./src/workflow.new.yml
