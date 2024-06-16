@@ -49,8 +49,6 @@ let handleMainResult (mainResult: Result<string, string>) : int =
         eprintfn $"[ERROR] {err}"
         int RETURN_CODE.FAIL
 
-// git tag --sort -creatordate | xargs dotnet run --project ../GitTagsToWorkflowDispatch/
-
 [<EntryPoint>]
 let main (args: string array) : int =
     let TEMP_WORKFLOW_KEY = "TEMP_WORKFLOW_KEY%%"
