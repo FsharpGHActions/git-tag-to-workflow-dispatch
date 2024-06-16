@@ -6,7 +6,6 @@ open FsToolkit.ErrorHandling
 /// Helper functions to deal with GitHub environment.
 module GitHubHelpers =
     let private VALUES_TO_TAKE = "VALUES_TO_TAKE"
-    let private WORKFLOW_FILE_NAME = "WORKFLOW_FILE_NAME"
     let private WORKFLOW_KEY = "WORKFLOW_KEY"
 
     let private tryInt (value: string) : Result<int, string> =
@@ -21,13 +20,6 @@ module GitHubHelpers =
         match String.IsNullOrEmpty valuesToTake with
         | true -> Error $"{VALUES_TO_TAKE} must not be null or empty"
         | false -> valuesToTake |> tryInt
-
-    let getWorkflowFileName () : Result<string, string> =
-        let workflowFileName = Environment.GetEnvironmentVariable WORKFLOW_FILE_NAME
-
-        match String.IsNullOrEmpty workflowFileName with
-        | true -> Error $"{workflowFileName} must not be null or empty"
-        | false -> Ok workflowFileName
 
     let getWorkflowKey () : Result<string, string> =
         let workflowKey = Environment.GetEnvironmentVariable WORKFLOW_KEY
@@ -69,13 +61,14 @@ let main (args: string array) : int =
 
     result {
         let! valuesToTake = GitHubHelpers.getValuesToTake ()
-        let! workflowFileName = GitHubHelpers.getWorkflowFileName ()
         let! workflowKey = GitHubHelpers.getWorkflowKey ()
 
         let tags =
             match valuesToTake = -1 with
             | true -> args
             | false -> args |> Array.truncate valuesToTake
+            |> Array.map (fun s -> s.Split(' ') |> Array.filter (String.IsNullOrEmpty >> not))
+            |> Array.concat // flat
 
         do! Validations.validateTagsAreNotEmpty tags
 
