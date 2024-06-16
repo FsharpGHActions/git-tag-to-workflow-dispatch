@@ -39,10 +39,13 @@ runs:
     - name: Checkout repo
       uses: actions/checkout@v4
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '8.x'
+    # TODO automate the update of the tag for download
+    - name: Download the self-contained .NET program
+      shell: bash
+      run: wget https://github.com/64J0/git-tag-to-workflow-dispatch/releases/download/v0.0.005/fsharp-program.tar.gz
+    - name: Uncompress the .NET program
+      shell: bash
+      run: tar -xf fsharp-program.tar.gz out/
     - name: Run the .NET program
       shell: bash
       env:
@@ -50,7 +53,7 @@ runs:
         WORKFLOW_KEY: ${{ inputs.workflow-yaml-key }}
         REPO_PATH: ${{ inputs.repo_path }}
         GIT_TAGS: ${{ inputs.git-tags }}
-      run: dotnet run --project src/ "${GIT_TAGS}"
+      run: ./out/Main "${GIT_TAGS}"
     
     - name: Merge the workflows
       uses: mikefarah/yq@master
