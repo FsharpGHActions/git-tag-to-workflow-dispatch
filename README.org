@@ -1,11 +1,89 @@
 #+TITLE: Automate GitTags to Workflow Options
-
-The idea to create this project was born from this ![discussion][https://github.com/orgs/community/discussions/45871].
+#+AUTHOR: 64J0<https://github.com/64J0>
 
 ** What is this project
+
+The idea to create this project was born from this [[https://github.com/orgs/community/discussions/45871][discussion]], where some people
+raised the desire to automate the process of defining the options for a workflow
+dispatch with the current tags from their repository.
+
+Since GitHub does not offer this feature, I decided to create it myself.
+
+*** Usage example
 
 TODO
 
 ** How to use it?
 
-TODO
+*** Required input arguments
+
+| Input              | Description                                                                  | Default value |
+|--------------------+------------------------------------------------------------------------------+---------------|
+| values-to-take     | Let you specify how many tags to take.                                       |            -1 |
+| workflow-file-name | Target workflow file name that must live under `.github/workflows/`.         |               |
+| workflow-yaml-key  | Specify the workflow YAML key that will be updated.                          |               |
+| github-token       | PAT token with more information at [[sec:pat][Personal Access Token - PAT]].              |               |
+| git-tags           | The repository tags from the newest to the oldest. Example [[sec:extract-tags][Extract the tags]]. |               |
+
+*** Optional input arguments
+
+| Input        | Description                                              | Default value |
+|--------------+----------------------------------------------------------+---------------|
+| pull-request | TODO. If 'true', create a PR; if false, commit directly. | 'true'        |
+
+*** Personal Access Token - PAT
+<<sec:pat>>
+
+Since this action creates a PR automatically that changes the contents of the
+repository workflows, it demands some special permissions, which are out of the
+scope of the [[https://docs.github.com/en/actions/security-guides/automatic-token-authentication][GITHUB_TOKEN]] (the [[https://github.com/orgs/community/discussions/25222][community discussion]]).
+
+My recommendation is that you create a Fine-grained [[https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens][Personal Access Token]] with
+access only to the repositories you intend to use this action, and with
+permissions:
+
+- Read access to metadata (this is enabled by default);
+- Read and write access to code;
+- Read and write access to pull requests;
+- Read and write access to workflows.
+
+*** Extracting the tags
+<<sec:extract-tags>>
+
+Since there are many ways to extract the tags from the repository, I decided to
+not add this feature to the project, so you're free to decide which one to
+use. For my examples, I use basically this approach:
+
+#+BEGIN_SRC yaml
+  jobs:
+    custom-action:
+      name: Update workflow dispatch tags
+      runs-on: ubuntu-22.04
+      steps:
+        - name: Checkout repo
+          uses: actions/checkout@v4
+          with:
+            fetch-depth: 0 # to get the tags
+        - name: Get the repository tags
+          run: |
+            THIS_GIT_TAGS=$(git tag --sort -creatordate --column)
+
+            echo "Git tags: ${THIS_GIT_TAGS}"
+
+            echo "THIS_GIT_TAGS=${THIS_GIT_TAGS}" >> "${GITHUB_ENV}"
+            # then you can use this environment variable when calling
+            # the custom action
+#+END_SRC
+
+Feel free to add your personal approach to this documentation.
+
+** To do list
+
+- [ ] Automated tests;
+- [ ] Tutorial article;
+- [ ] Map other ~peter-evans/create-pull-request@v6~ params, so the user can
+  customize the PR with the updates properly;
+- [ ] Add the feature for the user to specify whether a PR will be created or a
+  commit will be sent directly;
+- [ ] Automate the release asset download at the step ~Download the
+  self-contained .NET program~;
