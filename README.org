@@ -40,7 +40,7 @@ Since GitHub does not offer this feature, I decided to create it myself.
   
             echo "THIS_GIT_TAGS=${THIS_GIT_TAGS}" >> "${GITHUB_ENV}"
         - name: Run custom action
-          uses: 64J0/git-tag-to-workflow-dispatch@master
+          uses: FsharpGHActions/git-tag-to-workflow-dispatch@master
           with:
             values-to-take: 5
             workflow-file-name: ${{ matrix.files }}

@@ -38,7 +38,7 @@ runs:
     # TODO automate the update of the tag for download
     - name: Download the self-contained .NET program
       shell: bash
-      run: wget https://github.com/64J0/git-tag-to-workflow-dispatch/releases/download/v0.0.005/fsharp-program.tar.gz
+      run: wget https://github.com/FsharpGHActions/git-tag-to-workflow-dispatch/releases/download/v0.0.005/fsharp-program.tar.gz
     - name: Uncompress the .NET program
       shell: bash
       run: tar -xf fsharp-program.tar.gz out/
