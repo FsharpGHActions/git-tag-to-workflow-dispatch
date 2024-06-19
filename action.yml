@@ -50,7 +50,6 @@ runs:
       env:
         VALUES_TO_TAKE: ${{ inputs.values-to-take }}
         WORKFLOW_KEY: ${{ inputs.workflow-yaml-key }}
-        REPO_PATH: ${{ inputs.repo_path }}
         GIT_TAGS: ${{ inputs.git-tags }}
       run: ./out/Main "${GIT_TAGS}"
     
