@@ -1,6 +1,9 @@
 name: 'Git Tags to Workflow Dispatch'
 description: 'Automatically populate the workflow dispatch options with available tags from the repo'
 author: '64J0'
+branding:
+  icon: 'check-circle'
+  color: 'blue'
 inputs:
   values-to-take:
     description: >
