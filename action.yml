@@ -58,7 +58,7 @@ runs:
       env:
         WORKFLOW_FILE_NAME: ${{ inputs.workflow-file-name }}
       with:
-        cmd: yq -i '. * load("./src/workflow.new.yml")' ".github/workflows/${WORKFLOW_FILE_NAME}"
+        cmd: yq -i '. * load("./workflow.new.yml")' ".github/workflows/${WORKFLOW_FILE_NAME}"
 
     - name: Debug -> Print the new workflow file
       shell: bash
@@ -69,7 +69,7 @@ runs:
     - name: Clean action
       shell: bash
       run: |
-        rm ./src/workflow.new.yml
+        rm ./workflow.new.yml
         rm ./fsharp-program.tar.gz
         rm -rf out/
     
