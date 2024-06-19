@@ -38,6 +38,9 @@ type RETURN_CODE =
     | SUCCESS = 0
     | FAIL = 1
 
+let getWorkflowNewPath () =
+    Path.Combine [| Directory.GetCurrentDirectory(); "workflow.new.yml" |]
+
 type Workflow = YamlConfig<"workflow.temp.yml">
 
 let handleMainResult (mainResult: Result<string, string>) : int =
@@ -55,7 +58,7 @@ let main (args: string array) : int =
 
     let workflow = Workflow()
 
-    let workflowNewPath = __SOURCE_DIRECTORY__ + "/workflow.new.yml"
+    let workflowNewPath = getWorkflowNewPath ()
 
     result {
         let! valuesToTake = GitHubHelpers.getValuesToTake ()
