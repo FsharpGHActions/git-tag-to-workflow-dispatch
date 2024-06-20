@@ -47,5 +47,6 @@ jobs:
           # needs to be a PAT to update the workflows/ folder
           github-token: ${{ secrets.PAT_GITHUB }}
           git-tags: ${{ env.THIS_GIT_TAGS }}
+          base: 'master'
 
       
