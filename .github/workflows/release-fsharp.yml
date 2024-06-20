@@ -4,9 +4,10 @@
 name: Release F#
 
 on:
-  push:
-    tags:
-      - '*'
+  workflow_dispatch:
+  # push:
+  #   tags:
+  #     - '*'
 
 permissions:
   contents: write
