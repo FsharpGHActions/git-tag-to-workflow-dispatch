@@ -34,7 +34,7 @@ Since GitHub does not offer this feature, I decided to create it myself.
             fetch-depth: 0 # to get the tags
         - name: Get the repository tags
           run: |
-            THIS_GIT_TAGS=$(git tag --sort -creatordate --column)
+            THIS_GIT_TAGS=$(git tag --sort -creatordate | tr '\n' ' ')
   
             echo "Git tags: ${THIS_GIT_TAGS}"
   
@@ -103,7 +103,7 @@ use. For my examples, I use basically this approach:
             fetch-depth: 0 # to get the tags
         - name: Get the repository tags
           run: |
-            THIS_GIT_TAGS=$(git tag --sort -creatordate --column)
+            THIS_GIT_TAGS=$(git tag --sort -creatordate | tr '\n' ' ')
 
             echo "Git tags: ${THIS_GIT_TAGS}"
 

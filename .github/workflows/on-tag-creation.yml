@@ -32,7 +32,7 @@ jobs:
       - name: Get the repository tags
         working-directory: ./tagaction
         run: |
-          THIS_GIT_TAGS=$(git tag --sort -creatordate --column)
+          THIS_GIT_TAGS=$(git tag --sort -creatordate | tr '\n' ' ')
   
           echo "Git tags: ${THIS_GIT_TAGS}"
   
