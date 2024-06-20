@@ -40,20 +40,27 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    - name: Add HELPER_PATH
+      shell: bash
+      run: echo "HELPER_PATH=${GITHUB_SHA}-fsharp-program" >> "${GITHUB_ENV}"
+
     # TODO automate the update of the tag for download
     - name: Download the self-contained .NET program
       shell: bash
-      run: wget https://github.com/FsharpGHActions/git-tag-to-workflow-dispatch/releases/download/v0.0.008/fsharp-program.tar.gz
+      env:
+        PACKAGE_URL: 'https://github.com/FsharpGHActions/git-tag-to-workflow-dispatch/releases/download/v0.0.008/fsharp-program.tar.gz'
+      run: |
+        wget "${PACKAGE_URL}" -o "${HELPER_PATH}.tar.gz"
     - name: Uncompress the .NET program
       shell: bash
-      run: tar -xf fsharp-program.tar.gz out/
+      run: tar -xf "${HELPER_PATH}.tar.gz" "${HELPER_PATH}/"
     - name: Run the .NET program
       shell: bash
       env:
         VALUES_TO_TAKE: ${{ inputs.values-to-take }}
         WORKFLOW_KEY: ${{ inputs.workflow-yaml-key }}
         GIT_TAGS: ${{ inputs.git-tags }}
-      run: ./out/Main "${GIT_TAGS}"
+      run: ./${HELPER_PATH}/Main "${GIT_TAGS}"
     
     - name: Merge the workflows
       uses: mikefarah/yq@master
@@ -71,9 +78,9 @@ runs:
     - name: Clean action
       shell: bash
       run: |
-        rm ./workflow.new.yml
-        rm ./fsharp-program.tar.gz
-        rm -rf out/
+        rm "./workflow.new.yml"
+        rm "./${HELPER_PATH}.tar.gz"
+        rm -rf "./${HELPER_PATH}/"
     
     - name: Create pull request
       # if: ${{ inputs.pull-request }} # TODO
