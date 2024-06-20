@@ -49,8 +49,7 @@ runs:
       shell: bash
       env:
         PACKAGE_URL: 'https://github.com/FsharpGHActions/git-tag-to-workflow-dispatch/releases/download/v0.0.008/fsharp-program.tar.gz'
-      run: |
-        wget "${PACKAGE_URL}" -o "${HELPER_PATH}.tar.gz"
+      run: wget -O "${HELPER_PATH}.tar.gz" "${PACKAGE_URL}"
     - name: Uncompress the .NET program
       shell: bash
       run: tar -xf "${HELPER_PATH}.tar.gz" "${HELPER_PATH}/"
