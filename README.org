@@ -62,6 +62,7 @@ Since GitHub does not offer this feature, I decided to create it myself.
 | workflow-yaml-key  | Specify the workflow YAML key that will be updated.                          |               |
 | github-token       | PAT token with more information at [[#personal-access-token---pat][Personal Access Token - PAT]].              |               |
 | git-tags           | The repository tags from the newest to the oldest. Example [[#extracting-the-tags][Extract the tags]]. |               |
+| base               | Sets the pull request base branch.                                           |               |
 
 *** Optional input arguments
 

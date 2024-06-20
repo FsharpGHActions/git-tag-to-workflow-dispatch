@@ -32,6 +32,11 @@ inputs:
   git-tags:
     description: >
       The repository tags.
+  base:
+    description: >
+      Sets the pull request base branch.
+      Necessary due to:
+      - https://github.com/peter-evans/create-pull-request/blob/v6.1.0/src/create-pull-request.ts#L98
 runs:
   using: 'composite'
   steps:
@@ -78,6 +83,7 @@ runs:
       uses: peter-evans/create-pull-request@v6
       with:
         token: ${{ inputs.github-token }}
+        base: ${{ inputs.base }}
         branch-suffix: timestamp
         branch: git-tag-to-workflow-dispatch
         commit-message: |
