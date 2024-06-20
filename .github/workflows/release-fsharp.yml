@@ -5,9 +5,9 @@ name: Release F#
 
 on:
   workflow_dispatch: # xxx
-  push:
-    tags:
-      - '*'
+  # push:
+  #   tags:
+  #     - '*'
 
 permissions:
   contents: write
