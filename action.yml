@@ -52,14 +52,16 @@ runs:
       run: wget -O "${HELPER_PATH}.tar.gz" "${PACKAGE_URL}"
     - name: Uncompress the .NET program
       shell: bash
-      run: tar -xf "${HELPER_PATH}.tar.gz" "${HELPER_PATH}/"
+      run: |
+        mkdir "${HELPER_PATH}/"
+        tar -xf "${HELPER_PATH}.tar.gz" -C "${HELPER_PATH}/"
     - name: Run the .NET program
       shell: bash
       env:
         VALUES_TO_TAKE: ${{ inputs.values-to-take }}
         WORKFLOW_KEY: ${{ inputs.workflow-yaml-key }}
         GIT_TAGS: ${{ inputs.git-tags }}
-      run: ./${HELPER_PATH}/Main "${GIT_TAGS}"
+      run: ./${HELPER_PATH}/out/Main "${GIT_TAGS}"
     
     - name: Merge the workflows
       uses: mikefarah/yq@master
