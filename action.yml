@@ -40,6 +40,10 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    # xxx necessary to have access to the .github/workflows directory
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
     - name: Add HELPER_PATH
       shell: bash
       run: echo "HELPER_PATH=${GITHUB_SHA}-fsharp-program" >> "${GITHUB_ENV}"
