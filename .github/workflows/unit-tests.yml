@@ -1,0 +1,29 @@
+name: 'Unit tests'
+
+on:
+    workflow_dispatch:
+    pull_request:
+    push:
+  
+# Kill other jobs when we trigger this workflow by sending new commits
+# to the PR.
+# https://stackoverflow.com/a/72408109
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit-tests:
+    name: Run unit tests with Expecto
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.x'
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Run tests
+        run: dotnet run --project tests/

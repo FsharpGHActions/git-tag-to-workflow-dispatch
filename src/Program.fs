@@ -38,10 +38,16 @@ type RETURN_CODE =
     | SUCCESS = 0
     | FAIL = 1
 
-let truncate (valuesToTake: int) (args: string array) : string array =
-    match valuesToTake = -1 with
-    | true -> args
-    | false -> args |> Array.truncate valuesToTake
+// let getTruncatedTags (valuesToTake: int) (args: string array) : string array =
+//     let truncate (valuesToTake: int) (args: string array) : string array =
+//         match valuesToTake = -1 with
+//         | true -> args
+//         | false -> args |> Array.truncate valuesToTake
+
+//     args
+//     |> Array.map (fun s -> s.Split(' ') |> Array.filter (String.IsNullOrEmpty >> not))
+//     |> Array.concat // flat
+//     |> truncate valuesToTake
 
 let getWorkflowNewPath () =
     Path.Combine [| Directory.GetCurrentDirectory(); "workflow.new.yml" |]
@@ -69,11 +75,7 @@ let main (args: string array) : int =
         let! valuesToTake = GitHubHelpers.getValuesToTake ()
         let! workflowKey = GitHubHelpers.getWorkflowKey ()
 
-        let tags =
-            args
-            |> Array.map (fun s -> s.Split(' ') |> Array.filter (String.IsNullOrEmpty >> not))
-            |> Array.concat // flat
-            |> truncate valuesToTake
+        let tags = Main.TruncateTags.getTruncatedTags valuesToTake args
 
         do! Validations.validateTagsAreNotEmpty tags
 
