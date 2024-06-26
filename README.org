@@ -7,7 +7,8 @@ The idea to create this project was born from this [[https://github.com/orgs/com
 raised the desire to automate the process of defining the options for a workflow
 dispatch with the current tags from their repository.
 
-Since GitHub does not offer this feature, I decided to create it myself.
+Since GitHub does not offer this feature, I decided to create it myself. You can
+read an article from my blog explaining how it works [[https://gaio.dev/posts/2024-06-26-git-tag-to-workflow-dispatch][here]].
 
 *** Usage example
 
@@ -115,13 +116,3 @@ use. For my examples, I use basically this approach:
 
 Feel free to add your personal approach to this documentation.
 
-** To do list
-
-- [ ] Automated tests;
-- [ ] Tutorial article;
-- [ ] Map other ~peter-evans/create-pull-request@v6~ params, so the user can
-  customize the PR with the updates properly;
-- [ ] Add the feature for the user to specify whether a PR will be created or a
-  commit will be sent directly;
-- [ ] Automate the release asset download at the step ~Download the
-  self-contained .NET program~;
